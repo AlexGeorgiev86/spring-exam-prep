@@ -1,25 +1,22 @@
-package prep.model.entity;
+package prep.model.binding;
 
 import org.hibernate.validator.constraints.Length;
+import prep.model.entity.CategoryName;
 
-import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "items")
-public class Item extends BaseEntity {
+public class ItemAddBindingModel {
 
     private String name;
     private String description;
     private BigDecimal price;
-    private Category category;
+    private CategoryName category;
     private String gender;
 
-    public Item() {
+    public ItemAddBindingModel() {
     }
-    @Column(name = "name", unique = true)
     @Length(min = 2, message = "Name length must be more than two characters")
     public String getName() {
         return name;
@@ -28,7 +25,6 @@ public class Item extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-    @Column(name = "description")
     @Length(min = 3, message = "Description length must be more than three characters")
     public String getDescription() {
         return description;
@@ -37,7 +33,6 @@ public class Item extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-    @Column(name = "price", nullable = false)
     @DecimalMin(value = "0.0", inclusive = false)
     public BigDecimal getPrice() {
         return price;
@@ -46,15 +41,15 @@ public class Item extends BaseEntity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    @ManyToOne
-    public Category getCategory() {
+    @NotNull(message = "Enter valid category")
+    public CategoryName getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryName category) {
         this.category = category;
     }
-    @NotNull(message = "cannot be null")
+    @NotNull(message = "Enter valid gender")
     public String getGender() {
         return gender;
     }

@@ -29,6 +29,7 @@ public class User extends BaseEntity {
     public void setUsername(String username) {
         this.username = username;
     }
+
     @Column(name = "password", nullable = false)
     @Length(min = 2, message = "Password length must be more than two characters")
     public String getPassword() {

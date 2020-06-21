@@ -12,7 +12,7 @@
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Item</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" action="/" method="">
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" th:action="@{/items/add}" method="POST">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
@@ -33,10 +33,8 @@
             </div>
             <select class="browser-default custom-select" id="category" name="category">
                 <option value="">Select category</option>
-                <option value="SHIRT">Shirt</option>
-                <option value="DENIM">Denim</option>
-                <option value="SHORTS">Shorts</option>
-                <option value="JACKET">Jacket</option>
+                <option th:each="cat : ${T(prep.model.entity.CategoryName).values()}"
+                        th:value="${cat}" th:text="${cat}">Shirt</option>
             </select>
         </div>
         <div class="form-group">
