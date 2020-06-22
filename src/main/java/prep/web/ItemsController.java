@@ -2,9 +2,11 @@ package prep.web;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import prep.model.binding.ItemAddBindingModel;
 import prep.model.service.ItemServiceModel;
 import prep.service.ItemService;
@@ -24,19 +26,27 @@ public class ItemsController {
     }
 
     @GetMapping("/add")
-    public String add() {
+    public String add(Model model) {
+
+        if(!model.containsAttribute("item")) {
+            model.addAttribute("item", new ItemAddBindingModel());
+        }
         return "add-item";
     }
 
     @PostMapping("/add")
-    public String addPost(@Valid @ModelAttribute("item")ItemAddBindingModel itemAddBindingModel, BindingResult bindingResult) {
+    public ModelAndView addPost(@Valid @ModelAttribute("item")ItemAddBindingModel itemAddBindingModel, BindingResult bindingResult,
+                                ModelAndView modelAndView, RedirectAttributes ra) {
 
         if(bindingResult.hasErrors()) {
-            return "redirect:add";
+            ra.addFlashAttribute("item", itemAddBindingModel);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.item", bindingResult);
+            modelAndView.setViewName("redirect:/items/add");
         } else {
             this.itemService.addItem(this.modelMapper.map(itemAddBindingModel, ItemServiceModel.class));
+            modelAndView.setViewName("redirect:/");
         }
-        return "redirect:/";
+        return modelAndView;
     }
 
     @GetMapping("/details")

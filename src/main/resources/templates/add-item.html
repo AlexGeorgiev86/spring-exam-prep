@@ -12,20 +12,24 @@
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Item</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" th:action="@{/items/add}" method="POST">
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" th:action="@{/items/add}" method="POST" th:object="${item}">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
             </div>
-            <input type="text" class="form-control" id="name" name="name" />
-            <small class="text-danger">Incorrect name!</small>
+            <input type="text" th:field="*{name}" th:errorclass="bg-danger" class="form-control" id="name" name="name" />
+            <th:block th:each="e : ${#fields.errors('name')}">
+            <small th:text="${e}" class="text-danger">Incorrect name!</small>
+            </th:block>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="description" class="h4 mb-2">Description</label>
             </div>
-            <input type="text" class="form-control" id="description" name="description"/>
-            <small class="text-danger">Incorrect description</small>
+            <input type="text" th:field="*{description}" th:errorclass="bg-danger" class="form-control" id="description" name="description"/>
+            <th:block th:each="e : ${#fields.errors('description')}">
+            <small th:text="${e}" class="text-danger">Incorrect description</small>
+            </th:block>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
@@ -35,7 +39,11 @@
                 <option value="">Select category</option>
                 <option th:each="cat : ${T(prep.model.entity.CategoryName).values()}"
                         th:value="${cat}" th:text="${cat}">Shirt</option>
+                <th:block th:each="e : ${#fields.errors('category')}">
+                    <small th:text="${e}" class="text-danger">Incorrect</small>
+                </th:block>
             </select>
+
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
@@ -51,8 +59,10 @@
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="price" class="h4 mb-2">Price</label>
             </div>
-            <input type="number" class="form-control" id="price" name="price"/>
-            <small class="text-danger">Incorrect price!</small>
+            <input type="number" th:field="*{price}" th:errorclass="bg-danger" class="form-control" id="price" name="price"/>
+            <th:block th:each="e : ${#fields.errors('price')}">
+            <small th:text="${e}" class="text-danger">Incorrect price!</small>
+            </th:block>
         </div>
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-secondary text-white mb-3">Add Item</button>

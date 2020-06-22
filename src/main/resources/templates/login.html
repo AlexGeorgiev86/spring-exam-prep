@@ -24,14 +24,13 @@
             <div class="label-holder text-white d-flex justify-content-center">
                 <label for="username" class="h3 mb-2">Username</label>
             </div>
-            <input type="text" th:field="*{username}" class="form-control" id="username" name="username"/>
+            <input type="text" th:field="*{username}" th:errorclass="bg-danger" class="form-control" id="username" name="username"/>
         </div>
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
                 <label for="password" class="h3 mb-2">Password</label>
             </div>
-            <input type="password" class="form-control"
-                   id="password" name="password"/>
+            <input type="password" class="form-control" th:errorclass="bg-primary" id="password" name="password"/>
         </div>
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-secondary text-white mb-3">Login</button>

@@ -20,7 +20,7 @@
             <div class="label-holder textCol d-flex justify-content-center">
                 <label for="username" class="h4 mb-2 text-white">Username</label>
             </div>
-            <input type="text" th:field="*{username}" class="form-control" id="username" name="username"/>
+            <input type="text" th:field="*{username}" th:errorclass="bg-danger" class="form-control" id="username" name="username"/>
             <th:block th:each="e : ${#fields.errors('username')}">
                 <small th:text="${e}" class="text-danger">Incorrect username!</small>
             </th:block>
@@ -29,7 +29,7 @@
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="email" class="h4 mb-2">Email</label>
             </div>
-            <input type="email" th:field="*{email}" class="form-control" id="email" name="email"/>
+            <input type="email" th:field="*{email}" th:errorclass="bg-danger" class="form-control" id="email" name="email"/>
             <th:block th:each="e : ${#fields.errors('email')}">
             <small th:text="${e}" class="text-danger">Incorrect email!</small>
             </th:block>
@@ -38,9 +38,9 @@
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="budget" class="h4 mb-2">User budget</label>
             </div>
-            <input type="number" th:field="*{budget}" class="form-control" id="budget" name="budget"/>
+            <input type="number" th:field="*{budget}" th:errorclass="bg-danger" class="form-control" id="budget" name="budget"/>
             <th:block th:each="e : ${#fields.errors('budget')}">
-            <small class="text-danger">Incorrect budget!</small>
+            <small th:text="${e}" class="text-danger">Incorrect budget!</small>
             </th:block>
 
         </div>
@@ -50,7 +50,7 @@
             </div>
             <input type="password" class="form-control" id="password" name="password"/>
             <th:block th:each="e : ${#fields.errors('password')}">
-            <small class="text-danger">Incorrect pasword!</small>
+            <small th:text="${e}" class="text-danger">Incorrect pasword!</small>
             </th:block>
         </div>
         <div class="form-group">
